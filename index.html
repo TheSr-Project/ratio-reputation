@@ -33,7 +33,7 @@
     .merchant-header { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f1f5f9; background: #fafafa; }
     .merchant-info h2 { font-size: 1.35rem; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
     .merchant-meta { color: var(--muted); font-size: 0.875rem; margin-top: 0.35rem; display: flex; gap: 1rem; flex-wrap: wrap; }
-    .merchant-id { font-family: monospace; font-weight: 700; color: var(--primary); background: #e0e7ff; padding: 0.15rem 0.5rem; border-radius: 4px; }
+    .verified-tag { color: #0284c7; font-weight: 600; font-size: 0.8rem; background: #e0f2fe; padding: 0.15rem 0.5rem; border-radius: 4px; }
     
     .score-badge { display: inline-block; padding: 0.35rem 0.75rem; border-radius: 8px; font-weight: 800; font-size: 0.85rem; }
     .score-red { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5; }
@@ -63,25 +63,25 @@
 
   <header>
     <h1>ConsumerTrust Italia <span class="badge-official">Portale Reclami & Recensioni</span></h1>
-    <p>Bacheca indipendente di tutela del consumatore, contestazioni commercio e trasparenza crediti retail</p>
+    <p>Bacheca indipendente per la tutela del consumatore, contestazioni e-commerce e trasparenza commerciale</p>
   </header>
 
   <div class="container">
     
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Cerca merchant per Codice (es. CONV-840), Ragione Sociale (es. Nuovo Brico) o Partita IVA...">
-      <div class="search-stats" id="searchStats">Visualizzazione di tutti i merchant censiti</div>
+      <input type="text" id="searchInput" placeholder="Cerca azienda per Ragione Sociale (es. Nuovo Brico) o Partita IVA...">
+      <div class="search-stats" id="searchStats">Visualizzazione schede aziendali verificate</div>
     </div>
 
-    <!-- 1. CONV-840: Nuovo Brico Express (Frode su consegna) -->
-    <div class="merchant-card" id="CONV-840" data-merchant="CONV-840">
+    <!-- 1. Nuovo Brico Express S.r.l. (Mancata consegna / Bene non ricevuto) -->
+    <div class="merchant-card" id="brico-express" data-company="Nuovo Brico Express S.r.l." data-piva="1234567890">
       <div class="merchant-header">
         <div class="merchant-info">
-          <h2>Nuovo Brico Express S.r.l. <span class="merchant-id">CONV-840</span></h2>
+          <h2>Nuovo Brico Express S.r.l. <span class="verified-tag">Scheda Verificata</span></h2>
           <div class="merchant-meta">
+            <span>Sede: Milano (MI)</span>
             <span>P.IVA: 1234567890</span>
-            <span>Settore: Bricolage & Fai da te</span>
-            <span>Canale: E-commerce</span>
+            <span>Settore: Bricolage & Fai da te (E-commerce)</span>
           </div>
         </div>
         <div class="score-badge score-red">Indice Reclami: CRITICO (1.8/5)</div>
@@ -127,15 +127,15 @@
       </div>
     </div>
 
-    <!-- 2. CONV-421: E-Tech Solutions (Bloccato per frode / Furto identità) -->
-    <div class="merchant-card" id="CONV-421" data-merchant="CONV-421">
+    <!-- 2. E-Tech Solutions S.r.l. (Furto identità / Contratti simulati) -->
+    <div class="merchant-card" id="e-tech" data-company="E-Tech Solutions S.r.l." data-piva="3456789012">
       <div class="merchant-header">
         <div class="merchant-info">
-          <h2>E-Tech Solutions S.r.l. <span class="merchant-id">CONV-421</span></h2>
+          <h2>E-Tech Solutions S.r.l. <span class="verified-tag">Scheda Verificata</span></h2>
           <div class="merchant-meta">
+            <span>Sede: Torino (TO)</span>
             <span>P.IVA: 3456789012</span>
-            <span>Settore: Elettronica</span>
-            <span>Canale: Fisico</span>
+            <span>Settore: Elettronica di consumo</span>
           </div>
         </div>
         <div class="score-badge score-red">Indice Reclami: ALLARME FRODE (1.2/5)</div>
@@ -169,15 +169,15 @@
       </div>
     </div>
 
-    <!-- 3. CONV-994: Nova Retail Punto 102 (Performante) -->
-    <div class="merchant-card" id="CONV-994" data-merchant="CONV-994">
+    <!-- 3. Nova Retail Punto 102 S.r.l. (Azienda Virtuosa / Verde) -->
+    <div class="merchant-card" id="nova-retail" data-company="Nova Retail Punto 102 S.r.l." data-piva="9012345678">
       <div class="merchant-header">
         <div class="merchant-info">
-          <h2>Nova Retail Punto 102 S.r.l. <span class="merchant-id">CONV-994</span></h2>
+          <h2>Nova Retail Punto 102 S.r.l. <span class="verified-tag">Scheda Verificata</span></h2>
           <div class="merchant-meta">
+            <span>Sede: Bologna (BO)</span>
             <span>P.IVA: 9012345678</span>
-            <span>Settore: Arredamento</span>
-            <span>Canale: Fisico</span>
+            <span>Settore: Arredamento & Casa</span>
           </div>
         </div>
         <div class="score-badge score-green">Affidabilità: ELEVATA (4.8/5)</div>
@@ -211,15 +211,15 @@
       </div>
     </div>
 
-    <!-- 4. CONV-906: ElettroSmart S.r.l. (Sotto Osservazione) -->
-    <div class="merchant-card" id="CONV-906" data-merchant="CONV-906">
+    <!-- 4. ElettroSmart S.r.l. (Ritardi fisiologici) -->
+    <div class="merchant-card" id="elettrosmart" data-company="ElettroSmart S.r.l." data-piva="6789012345">
       <div class="merchant-header">
         <div class="merchant-info">
-          <h2>ElettroSmart S.r.l. <span class="merchant-id">CONV-906</span></h2>
+          <h2>ElettroSmart S.r.l. <span class="verified-tag">Scheda Verificata</span></h2>
           <div class="merchant-meta">
+            <span>Sede: Firenze (FI)</span>
             <span>P.IVA: 6789012345</span>
-            <span>Settore: Bricolage</span>
-            <span>Canale: Fisico</span>
+            <span>Settore: Elettrodomestici</span>
           </div>
         </div>
         <div class="score-badge score-yellow">Affidabilità: MEDIA (3.4/5)</div>
@@ -241,15 +241,15 @@
       </div>
     </div>
 
-    <!-- 5. CONV-418: Rossi Costruzioni S.r.l. (Nuovo Onboarded Cerved) -->
-    <div class="merchant-card" id="CONV-418" data-merchant="CONV-418">
+    <!-- 5. Rossi Costruzioni S.r.l. (Nuovo Onboarded Cerved) -->
+    <div class="merchant-card" id="rossi-costruzioni" data-company="Rossi Costruzioni S.r.l." data-piva="21681160418">
       <div class="merchant-header">
         <div class="merchant-info">
-          <h2>Rossi Costruzioni S.r.l. <span class="merchant-id">CONV-418</span></h2>
+          <h2>Rossi Costruzioni S.r.l. <span class="verified-tag">Scheda Verificata</span></h2>
           <div class="merchant-meta">
+            <span>Sede: Roma (RM)</span>
             <span>P.IVA: 21681160418</span>
             <span>Settore: Edilizia & Costruzioni</span>
-            <span>Canale: Fisico</span>
           </div>
         </div>
         <div class="score-badge score-green">Affidabilità: BUONA (4.4/5)</div>
@@ -294,7 +294,7 @@
           card.style.display = 'none';
         }
       });
-      stats.innerText = q ? `Trovati ${visibleCount} merchant corrispondenti` : `Visualizzazione di tutti i merchant censiti`;
+      stats.innerText = q ? `Trovate ${visibleCount} schede corrispondenti` : `Visualizzazione schede aziendali verificate`;
     });
   </script>
 
