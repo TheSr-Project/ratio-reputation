@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConsumerTrust Italia - Portale Tutela Consumatori & Bacheca Reclami</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --success: #16a34a;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    header { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); color: white; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    header h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
+    header p { color: #94a3b8; font-size: 1rem; margin-top: 0.5rem; }
+    .badge-official { background: #38bdf8; color: #082f49; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 9999px; text-transform: uppercase; margin-left: 0.5rem; }
+    
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    
+    .search-box { background: white; border-radius: 12px; padding: 1.25rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+    .search-box input { width: 100%; padding: 0.85rem 1.25rem; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 1.05rem; outline: none; transition: border-color 0.2s; }
+    .search-box input:focus { border-color: var(--primary); }
+    .search-stats { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+    
+    .merchant-card { background: var(--card-bg); border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 2rem; overflow: hidden; }
+    .merchant-header { padding: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f1f5f9; background: #fafafa; }
+    .merchant-info h2 { font-size: 1.35rem; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .merchant-meta { color: var(--muted); font-size: 0.875rem; margin-top: 0.35rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .merchant-id { font-family: monospace; font-weight: 700; color: var(--primary); background: #e0e7ff; padding: 0.15rem 0.5rem; border-radius: 4px; }
+    
+    .score-badge { display: inline-block; padding: 0.35rem 0.75rem; border-radius: 8px; font-weight: 800; font-size: 0.85rem; }
+    .score-red { background: #fee2e2; color: var(--danger); border: 1px solid #fca5a5; }
+    .score-green { background: #dcfce7; color: var(--success); border: 1px solid #86efac; }
+    .score-yellow { background: #fef3c7; color: var(--warning); border: 1px solid #fde68a; }
+    
+    .complaints-list { padding: 1.5rem; }
+    .complaints-title { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 1rem; }
+    
+    .complaint-item { background: #f8fafc; border-left: 4px solid #cbd5e1; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+    .complaint-red { border-left-color: var(--danger); }
+    .complaint-green { border-left-color: var(--success); }
+    .complaint-yellow { border-left-color: var(--warning); }
+    
+    .complaint-head { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .complaint-title { font-weight: 700; font-size: 1.05rem; color: #1e293b; margin-bottom: 0.5rem; }
+    .complaint-text { font-size: 0.95rem; color: #334155; }
+    .complaint-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.5rem; }
+    .tag-danger { background: #ffe4e6; color: #e11d48; }
+    .tag-success { background: #d1fae5; color: #047857; }
+    .tag-warning { background: #fef3c7; color: #b45309; }
+    
+    footer { text-align: center; color: var(--muted); padding: 2rem; font-size: 0.85rem; border-top: 1px solid #e2e8f0; margin-top: 3rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ConsumerTrust Italia <span class="badge-official">Portale Reclami & Recensioni</span></h1>
+    <p>Bacheca indipendente di tutela del consumatore, contestazioni commercio e trasparenza crediti retail</p>
+  </header>
+
+  <div class="container">
+    
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Cerca merchant per Codice (es. CONV-840), Ragione Sociale (es. Nuovo Brico) o Partita IVA...">
+      <div class="search-stats" id="searchStats">Visualizzazione di tutti i merchant censiti</div>
+    </div>
+
+    <!-- 1. CONV-840: Nuovo Brico Express (Frode su consegna) -->
+    <div class="merchant-card" id="CONV-840" data-merchant="CONV-840">
+      <div class="merchant-header">
+        <div class="merchant-info">
+          <h2>Nuovo Brico Express S.r.l. <span class="merchant-id">CONV-840</span></h2>
+          <div class="merchant-meta">
+            <span>P.IVA: 1234567890</span>
+            <span>Settore: Bricolage & Fai da te</span>
+            <span>Canale: E-commerce</span>
+          </div>
+        </div>
+        <div class="score-badge score-red">Indice Reclami: CRITICO (1.8/5)</div>
+      </div>
+      <div class="complaints-list">
+        <div class="complaints-title">Reclami recenti con contestazione aperta</div>
+
+        <div class="complaint-item complaint-red">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">10/10/2026</span>
+            <span>Segnalazione #89421</span>
+          </div>
+          <div class="complaint-title">Trapano e generatore mai consegnati - Pratica di credito attiva</div>
+          <p class="complaint-text rich-text">
+            Ho effettuato un acquisto online con finanziamento a rate tramite Cofidis PagoDIL, ma la merce non è mai stata spedita dal venditore Nuovo Brico Express. Ho richiesto spiegazioni ma sono spariti nel nulla. Il corriere conferma che l'ordine non è mai partito dal loro magazzino. Intanto le rate del finanziamento sono già state addebitate sul conto. Ho sporto formale contestazione per Bene Non Ricevuto.
+          </p>
+          <span class="complaint-tag tag-danger">Mancata consegna / Bene non ricevuto</span>
+        </div>
+
+        <div class="complaint-item complaint-red">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">28/09/2026</span>
+            <span>Segnalazione #88204</span>
+          </div>
+          <div class="complaint-title">Diffida per mancata consegna materiali</div>
+          <p class="complaint-text rich-text">
+            Ordinato set attrezzi da oltre trenta giorni. Il tracking fornito dal venditore risulta inesistente. Inviata formale diffida ad adempiere con richiesta di annullamento del contratto di finanziamento. Assistenza inesistente.
+          </p>
+          <span class="complaint-tag tag-danger">Inadempimento contrattuale</span>
+        </div>
+
+        <div class="complaint-item complaint-red">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">15/09/2026</span>
+            <span>Segnalazione #87119</span>
+          </div>
+          <div class="complaint-title">Finanziamento aperto ma ordine fantasma</div>
+          <p class="complaint-text rich-text">
+            Il venditore Nuovo Brico Express ha confermato l'ordine per sbloccare l'erogazione del prestito, ma non ha mai inviato i prodotti. Mi trovo a pagare le rate di un bene fantasma. Pratica passata all'ufficio legale.
+          </p>
+          <span class="complaint-tag tag-danger">Contratto contestato / Truffa</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. CONV-421: E-Tech Solutions (Bloccato per frode / Furto identità) -->
+    <div class="merchant-card" id="CONV-421" data-merchant="CONV-421">
+      <div class="merchant-header">
+        <div class="merchant-info">
+          <h2>E-Tech Solutions S.r.l. <span class="merchant-id">CONV-421</span></h2>
+          <div class="merchant-meta">
+            <span>P.IVA: 3456789012</span>
+            <span>Settore: Elettronica</span>
+            <span>Canale: Fisico</span>
+          </div>
+        </div>
+        <div class="score-badge score-red">Indice Reclami: ALLARME FRODE (1.2/5)</div>
+      </div>
+      <div class="complaints-list">
+        <div class="complaints-title">Reclami recenti</div>
+
+        <div class="complaint-item complaint-red">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">02/10/2026</span>
+            <span>Segnalazione #89110</span>
+          </div>
+          <div class="complaint-title">Finanziamento retail aperto a mia insaputa</div>
+          <p class="complaint-text rich-text">
+            Mi sono visto recapitare un addebito sul conto corrente per un acquisto di smartphone mai effettuato presso il punto vendita E-Tech Solutions. Presunto furto di identità con firma contraffatta. Ho depositato formale denuncia ai Carabinieri per truffa e contratti simulati.
+          </p>
+          <span class="complaint-tag tag-danger">Frode documentale / Furto identità</span>
+        </div>
+
+        <div class="complaint-item complaint-red">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">12/09/2026</span>
+            <span>Segnalazione #87032</span>
+          </div>
+          <div class="complaint-title">Fatture gonfiate e storni negati</div>
+          <p class="complaint-text rich-text">
+            Importo totale della pratica maggiorato rispetto al prezzo concordato allo sportello. Alla richiesta di storno hanno opposto rifiuto. Pratica sotto investigazione antifrode.
+          </p>
+          <span class="complaint-tag tag-danger">Storni non rimborsati</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CONV-994: Nova Retail Punto 102 (Performante) -->
+    <div class="merchant-card" id="CONV-994" data-merchant="CONV-994">
+      <div class="merchant-header">
+        <div class="merchant-info">
+          <h2>Nova Retail Punto 102 S.r.l. <span class="merchant-id">CONV-994</span></h2>
+          <div class="merchant-meta">
+            <span>P.IVA: 9012345678</span>
+            <span>Settore: Arredamento</span>
+            <span>Canale: Fisico</span>
+          </div>
+        </div>
+        <div class="score-badge score-green">Affidabilità: ELEVATA (4.8/5)</div>
+      </div>
+      <div class="complaints-list">
+        <div class="complaints-title">Recensioni verificate</div>
+
+        <div class="complaint-item complaint-green">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">08/10/2026</span>
+            <span>Recensione #89211</span>
+          </div>
+          <div class="complaint-title">Esperienza d'acquisto perfetta e consegna puntuale</div>
+          <p class="complaint-text rich-text">
+            Abbiamo acquistato la cucina completa con finanziamento in negozio. Tutto trasparente, montatori precisi e consegna nei tempi concordati. Partner serio e consigliatissimo.
+          </p>
+          <span class="complaint-tag tag-success">Servizio regolare</span>
+        </div>
+
+        <div class="complaint-item complaint-green">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">22/09/2026</span>
+            <span>Recensione #87540</span>
+          </div>
+          <div class="complaint-title">Finanziamento rapido e zero intoppi</div>
+          <p class="complaint-text rich-text">
+            Ottima assistenza commerciale, contratto chiaro e condizioni rispettate al centesimo.
+          </p>
+          <span class="complaint-tag tag-success">Trasparenza</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CONV-906: ElettroSmart S.r.l. (Sotto Osservazione) -->
+    <div class="merchant-card" id="CONV-906" data-merchant="CONV-906">
+      <div class="merchant-header">
+        <div class="merchant-info">
+          <h2>ElettroSmart S.r.l. <span class="merchant-id">CONV-906</span></h2>
+          <div class="merchant-meta">
+            <span>P.IVA: 6789012345</span>
+            <span>Settore: Bricolage</span>
+            <span>Canale: Fisico</span>
+          </div>
+        </div>
+        <div class="score-badge score-yellow">Affidabilità: MEDIA (3.4/5)</div>
+      </div>
+      <div class="complaints-list">
+        <div class="complaints-title">Recensioni e segnalazioni</div>
+
+        <div class="complaint-item complaint-yellow">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">05/10/2026</span>
+            <span>Segnalazione #88902</span>
+          </div>
+          <div class="complaint-title">Ritardo logistico ma servizio clienti disponibile</div>
+          <p class="complaint-text rich-text">
+            La consegna del piano cottura ha subito un ritardo di 8 giorni rispetto al preventivo. L'assistenza clienti ha risposto fornendo un buono sconto. Pratica risolta.
+          </p>
+          <span class="complaint-tag tag-warning">Ritardo logistico</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CONV-418: Rossi Costruzioni S.r.l. (Nuovo Onboarded Cerved) -->
+    <div class="merchant-card" id="CONV-418" data-merchant="CONV-418">
+      <div class="merchant-header">
+        <div class="merchant-info">
+          <h2>Rossi Costruzioni S.r.l. <span class="merchant-id">CONV-418</span></h2>
+          <div class="merchant-meta">
+            <span>P.IVA: 21681160418</span>
+            <span>Settore: Edilizia & Costruzioni</span>
+            <span>Canale: Fisico</span>
+          </div>
+        </div>
+        <div class="score-badge score-green">Affidabilità: BUONA (4.4/5)</div>
+      </div>
+      <div class="complaints-list">
+        <div class="complaints-title">Recensioni storiche</div>
+
+        <div class="complaint-item complaint-green">
+          <div class="complaint-head">
+            <span class="detail-message__letterhead__date">01/10/2026</span>
+            <span>Recensione #89012</span>
+          </div>
+          <div class="complaint-title">Fornitura serramenti e ristrutturazione completata</div>
+          <p class="complaint-text rich-text">
+            Azienda storica e solida. Lavori eseguiti con perizia e fatturazione chiara. Nessun problema con le rate del prestito.
+          </p>
+          <span class="complaint-tag tag-success">Affidabile</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    ConsumerTrust Italia &bull; Portale Certificato di Reclami e Recensioni dei Consumatori &bull; Aggiornato al 15 Ottobre 2026
+  </footer>
+
+  <script>
+    const input = document.getElementById('searchInput');
+    const stats = document.getElementById('searchStats');
+    const cards = document.querySelectorAll('.merchant-card');
+
+    input.addEventListener('input', function(e) {
+      const q = e.target.value.toLowerCase().trim();
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      stats.innerText = q ? `Trovati ${visibleCount} merchant corrispondenti` : `Visualizzazione di tutti i merchant censiti`;
+    });
+  </script>
+
+</body>
+</html>
